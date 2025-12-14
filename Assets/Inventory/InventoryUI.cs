@@ -6,11 +6,10 @@ using UnityEngine.UI;
 public class InventoryUI : MonoBehaviour
 {
     public Sprite dirtSprite;
-    public Sprite diamondSprite;
     public Sprite grassSprite;
     public Sprite waterSprite;
-    public Sprite cloudSprite;
     public Sprite axeSprite;
+    public Sprite treeSprite;
 
     public List<Transform> Slot = new List<Transform>();
     public GameObject SlotItem;
@@ -48,6 +47,9 @@ public class InventoryUI : MonoBehaviour
                     break;
                 case ItemType.Axe:
                     sItem.ItemSetting(axeSprite, "x" + item.Value.ToString(), item.Key);
+                    break;
+                case ItemType.Tree:
+                    sItem.ItemSetting(treeSprite, "x" + item.Value.ToString(), item.Key);
                     break;
             }
             idx++;

@@ -18,7 +18,9 @@ public class PlayerHarvester : MonoBehaviour
     void Awake()
     {
         _cam = Camera.main;
-        if (inventory == null) inventory = gameObject.AddComponent<Inventory>();
+        if (inventory == null)
+            inventory = gameObject.AddComponent<Inventory>();
+
         invenUI = FindObjectOfType<InventoryUI>();
     }
 
@@ -26,13 +28,13 @@ public class PlayerHarvester : MonoBehaviour
     {
         if (invenUI.selectedIndex < 0)
         {
-            selectedBlock.transform.localScale = Vector3.zero;
+            // 선택된 idx가 -1이면 수집 모드
             if (Input.GetMouseButton(0) && Time.time >= _nextHitTime)
             {
                 _nextHitTime = Time.time + hitCooldown;
 
                 Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // 화면 중앙
-                if (Physics.Raycast(ray, out var hit, rayDistance, hitMask))
+                if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     var block = hit.collider.GetComponent<Block>();
                     if (block != null)
@@ -40,30 +42,14 @@ public class PlayerHarvester : MonoBehaviour
                         block.Hit(toolDamage, inventory);
                     }
                 }
-
-
             }
         }
         else
         {
-            Ray rayDebug = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
-            if (Physics.Raycast(rayDebug, out var hitDebug, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
-            {
-                Vector3Int placePos = AdjacentCellOnHitFace(hitDebug);
-                selectedBlock.transform.localScale = Vector3.one;
-                selectedBlock.transform.position = placePos;
-                selectedBlock.transform.rotation = Quaternion.identity;
-            }
-
-            else
-            {
-                selectedBlock.transform.localScale = Vector3.zero;
-            }
-
-
             if (Input.GetMouseButtonDown(0))
             {
-                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0));
+                // 선택된 idx가 0 이상이면 설치 모드
+                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // 화면 중앙
                 if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     Vector3Int placePos = AdjacentCellOnHitFace(hit);
@@ -80,8 +66,9 @@ public class PlayerHarvester : MonoBehaviour
 
     static Vector3Int AdjacentCellOnHitFace(in RaycastHit hit)
     {
-        Vector3 baseCenter = hit.collider.transform.position;
-        Vector3 adjCenter = baseCenter + hit.normal;
+        Vector3 baseCenter = hit.collider.transform.position; // 맞은 블록의 중심(정수 좌표 x,y,z)
+        Vector3 adjCenter = baseCenter + hit.normal;          // 그 면의 바깥쪽으로 정확히 한 칸 이동
         return Vector3Int.RoundToInt(adjCenter);
     }
 }
+
