@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Dirt, Grass, Water, Axe, Tree }
-
+public enum ItemType { Dirt, Grass, Water, Axe, Tree, rock, ore}
 
 public class Block : MonoBehaviour
 {

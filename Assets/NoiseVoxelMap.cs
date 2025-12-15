@@ -9,6 +9,8 @@ public class NoiseVoxelMap : MonoBehaviour
     public GameObject grassPrefab;
     public GameObject waterPrefab;
     public GameObject treePrefab;
+    public GameObject rockPrefab;
+    public GameObject orePrefab;
 
     public int width = 20;
     public int depth = 20;
@@ -111,6 +113,39 @@ public class NoiseVoxelMap : MonoBehaviour
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
             b.type = ItemType.Water;
             b.maxHP = 3;
+            b.dropCount = 1;
+            b.mineable = true;
+        }
+        else if (prefab == treePrefab) // 4. 나무 Prefab인 경우
+        {
+            var go = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity, transform);
+            go.name = $"Tree_{x}_{y}_{z}";
+
+            var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
+            b.type = ItemType.Tree; // 5. 아이템 타입 변경
+            b.maxHP = 4; // 6. 나무에 맞는 HP 설정 (예시)
+            b.dropCount = 1;
+            b.mineable = true;
+        }
+        else if (prefab == rockPrefab) // 1. 돌 Prefab인 경우
+        {
+            var go = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity, transform);
+            go.name = $"rock_{x}_{y}_{z}";
+
+            var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
+            b.type = ItemType.rock; // 2. 아이템 타입 변경
+            b.maxHP = 5; // 3. 돌에 맞는 HP 설정 (예시)
+            b.dropCount = 1;
+            b.mineable = true;
+        }
+        else if (prefab == orePrefab) // 1. 돌 Prefab인 경우
+        {
+            var go = Instantiate(prefab, new Vector3(x, y, z), Quaternion.identity, transform);
+            go.name = $"ore_{x}_{y}_{z}";
+
+            var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
+            b.type = ItemType.ore; // 2. 아이템 타입 변경
+            b.maxHP = 5; // 3. 돌에 맞는 HP 설정 (예시)
             b.dropCount = 1;
             b.mineable = true;
         }
