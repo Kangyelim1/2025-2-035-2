@@ -4,14 +4,14 @@ using UnityEngine;
 
 public class PlayerHarvester : MonoBehaviour
 {
-    public float rayDistance = 5f;        // Ã¤Áý °¡´É °Å¸®
-    public LayerMask hitMask = ~0;      // °¡´ÉÇÑ ÇÑ ·¹ÀÌ¾î ÀüºÎ ´Ù (ÀÏ´Ü)
-    public int toolDamage = 1;          // Å¸°Ý µ¥¹ÌÁö
-    public float hitCooldown = 0.15f;   // ¿¬Å¸ °£°Ý
+    public float rayDistance = 5f;        // Ã¤ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½
+    public LayerMask hitMask = ~0;      // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½Ì¾ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ (ï¿½Ï´ï¿½)
+    public int toolDamage = 1;          // Å¸ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    public float hitCooldown = 0.15f;   // ï¿½ï¿½Å¸ ï¿½ï¿½ï¿½ï¿½
 
     private float _nextHitTime;
     private Camera _cam;
-    public Inventory inventory;         // ÇÃ·¹ÀÌ¾î ÀÎº¥(¾øÀ¸¸é ÀÚµ¿ ºÎÂø)
+    public Inventory inventory;         // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ ï¿½Îºï¿½(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ ï¿½ï¿½ï¿½ï¿½)
     InventoryUI invenUI;
     public GameObject selectedBlock;
 
@@ -28,12 +28,12 @@ public class PlayerHarvester : MonoBehaviour
     {
         if (invenUI.selectedIndex < 0)
         {
-            // ¼±ÅÃµÈ idx°¡ -1ÀÌ¸é ¼öÁý ¸ðµå
+            // ï¿½ï¿½ï¿½Ãµï¿½ idxï¿½ï¿½ -1ï¿½Ì¸ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½
             if (Input.GetMouseButton(0) && Time.time >= _nextHitTime)
             {
                 _nextHitTime = Time.time + hitCooldown;
 
-                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // È­¸é Áß¾Ó
+                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // È­ï¿½ï¿½ ï¿½ß¾ï¿½
                 if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     var block = hit.collider.GetComponent<Block>();
@@ -48,8 +48,8 @@ public class PlayerHarvester : MonoBehaviour
         {
             if (Input.GetMouseButtonDown(0))
             {
-                // ¼±ÅÃµÈ idx°¡ 0 ÀÌ»óÀÌ¸é ¼³Ä¡ ¸ðµå
-                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // È­¸é Áß¾Ó
+                // ï¿½ï¿½ï¿½Ãµï¿½ idxï¿½ï¿½ 0 ï¿½Ì»ï¿½ï¿½Ì¸ï¿½ ï¿½ï¿½Ä¡ ï¿½ï¿½ï¿½
+                Ray ray = _cam.ViewportPointToRay(new Vector3(0.5f, 0.5f, 0)); // È­ï¿½ï¿½ ï¿½ß¾ï¿½
                 if (Physics.Raycast(ray, out var hit, rayDistance, hitMask, QueryTriggerInteraction.Ignore))
                 {
                     Vector3Int placePos = AdjacentCellOnHitFace(hit);
@@ -66,8 +66,8 @@ public class PlayerHarvester : MonoBehaviour
 
     static Vector3Int AdjacentCellOnHitFace(in RaycastHit hit)
     {
-        Vector3 baseCenter = hit.collider.transform.position; // ¸ÂÀº ºí·ÏÀÇ Áß½É(Á¤¼ö ÁÂÇ¥ x,y,z)
-        Vector3 adjCenter = baseCenter + hit.normal;          // ±× ¸éÀÇ ¹Ù±ùÂÊÀ¸·Î Á¤È®È÷ ÇÑ Ä­ ÀÌµ¿
+        Vector3 baseCenter = hit.collider.transform.position; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß½ï¿½(ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ç¥ x,y,z)
+        Vector3 adjCenter = baseCenter + hit.normal;          // ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ù±ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È®ï¿½ï¿½ ï¿½ï¿½ Ä­ ï¿½Ìµï¿½
         return Vector3Int.RoundToInt(adjCenter);
     }
 }

@@ -42,7 +42,7 @@ public class InventoryUI : MonoBehaviour
                     sItem.ItemSetting(dirtSprite, "x" + item.Value.ToString(), item.Key);
                     break;
                 case ItemType.Grass:
-                    sItem.ItemSetting(grassSprite, "x" + item.Value.ToString(), item.Key);
+                      sItem.ItemSetting(grassSprite, "x" + item.Value.ToString(), item.Key);
                     break;
                 case ItemType.Water:
                     sItem.ItemSetting(waterSprite, "x" + item.Value.ToString(), item.Key);

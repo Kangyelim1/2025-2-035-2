@@ -9,6 +9,7 @@ public class NoiseVoxelMap : MonoBehaviour
     public GameObject grassPrefab;
     public GameObject waterPrefab;
     public GameObject treePrefab;
+    public GameObject leafPrefab;
     public GameObject rockPrefab;
     public GameObject orePrefab;
 
@@ -18,31 +19,11 @@ public class NoiseVoxelMap : MonoBehaviour
     [SerializeField] float noiseScale = 20f;
     public int waterLevel = 4;
 
-    //나무
-    public float treeDensity = 0.01f;
-    private const int GRASS_BLOCK_ID = 1;
-    public const int CHUNK_SIZE = 16;
-
-    void GenerateChunk()
-    {
-        for (int z = 0; z < CHUNK_SIZE; z++)
-        {
-            // 여기서 GetBlockType 사용
-            if (GetBlockType(0, 0, z) == GRASS_BLOCK_ID)
-            {
-                // 나무 생성
-            }
-        }
-    }
-
-    // ✅ 여기에 추가하세요 (가장 아래가 제일 안전)
-    int GetBlockType(int x, int y, int z)
-    {
-        return GRASS_BLOCK_ID; // 임시
-    }
+    [Range(0, 0.1f)] public float treeDensity = 0.05f; // 5% 확률로 생성
 
     void Start()
     {
+        
         float offsetX = Random.Range(-9999f, 9999f);
         float offsetZ = Random.Range(-9999f, 9999f);
 
@@ -72,9 +53,18 @@ public class NoiseVoxelMap : MonoBehaviour
                         Place(waterPrefab, x, y, z);
                     }
                 }
+
+                // 나무 생성 로직 추가
+                if(Random.value < treeDensity)
+                {
+                    GenerateTree(x,h + 1, z);
+                }
             }
         }
+            
     }
+
+
 
     // 공통 블록 배치 함수
     private void Place(GameObject prefab, int x, int y, int z)
@@ -152,55 +142,44 @@ public class NoiseVoxelMap : MonoBehaviour
 
     }
 
-    void PlaceTrees(Vector3Int chunkStartPos)
+    void GenerateTree(int x, int y, int z)
     {
-        for (int x = 0; x < CHUNK_SIZE; x++)
-        {
-            for (int z = 0; z < CHUNK_SIZE; z++)
-            {
-                Vector3Int worldPos = chunkStartPos + new Vector3Int(x, 0, z);
-                int groundY = GetHighestBlockY(worldPos.x, worldPos.z);
+        int treeHeight = Random.Range(4, 7);
 
-                // 나무가 배치될 최종 위치 (잔디 블록 바로 위)
-                Vector3Int treePos = new Vector3Int(worldPos.x, groundY + 1, worldPos.z);
-                if (GetBlockType(worldPos.x, groundY, worldPos.z) == GRASS_BLOCK_ID)
+        for(int i = 0; i < treeHeight; i++)
+        {
+            Place(treePrefab, x, y + i,z);
+        }
+
+        for (int lx = -1; lx <= 1; lx++)
+        {
+            for (int lz = -1; lz <= 1; lz++)
+            {
+                for (int ly = 0; ly < 2; ly++)
                 {
-                    // 2. 설정된 확률로 나무를 심을지 결정합니다.
-                    if (Random.value < treeDensity)
-                    {
-                        InstantiateTree(treePos);
-                    }
+                    Place(leafPrefab, x + lx, y + treeHeight + ly - 1, z + lz);
                 }
             }
         }
-
-    }
-
-    int GetHighestBlockY(int x, int z)
-    {
-        return 60;
-    }
-
-
-
-    void InstantiateTree(Vector3Int position)
-    {
-        Instantiate(treePrefab, position, Quaternion.identity); 
     }
 
     public void PlaceTile(Vector3Int pos, ItemType type)
+{
+    GameObject prefabToPlace = null;
+
+    // 아이템 타입에 따라 어떤 프리팹을 쓸지 결정 (ItemType 정의에 따라 수정 필요)
+    switch (type)
     {
-        switch (type)
-        {
-            case ItemType.Dirt:
-                Place(dirtPrefab, pos.x, pos.y, pos.z);
-                break;
-            case ItemType.Grass:
-                Place(grassPrefab, pos.x, pos.y, pos.z);
-                break;
-            case ItemType.Water:
-                Place(waterPrefab, pos.x, pos.y, pos.z);
-                break;
-        }
+        case ItemType.Dirt: prefabToPlace = dirtPrefab; break;
+        case ItemType.Grass: prefabToPlace = grassPrefab; break;
+        case ItemType.rock: prefabToPlace = rockPrefab; break;
+        case ItemType.Tree: prefabToPlace = treePrefab; break; // 나무 기둥
+        // ... 필요한 만큼 추가
     }
+
+    if (prefabToPlace != null)
+    {
+        Place(prefabToPlace, pos.x, pos.y, pos.z);
+    }
+}
 }
