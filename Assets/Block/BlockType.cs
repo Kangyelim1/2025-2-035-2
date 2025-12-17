@@ -9,6 +9,7 @@ public enum BlockType
     Grass = 1,
     Water = 2,
     Tree = 3,
-    Diamond = 4,
+    rock = 4,
+    ore = 5,
     // ... 필요한 블록 타입 추가
 }

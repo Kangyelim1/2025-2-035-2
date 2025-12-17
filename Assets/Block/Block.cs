@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum ItemType { Dirt, Grass, Water, Axe, Tree, rock, ore}
+public enum ItemType { Dirt, Grass, Water, Axe, Tree, rock, ore, shovel, Gokgaengi }
 
 public class Block : MonoBehaviour
 {

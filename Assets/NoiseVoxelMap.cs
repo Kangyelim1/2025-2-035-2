@@ -13,9 +13,9 @@ public class NoiseVoxelMap : MonoBehaviour
     public GameObject rockPrefab;
     public GameObject orePrefab;
 
-    public int width = 20;
-    public int depth = 20;
-    public int maxHeight = 16;
+    public int width = 50;
+    public int depth = 50;
+    public int maxHeight = 20;
     [SerializeField] float noiseScale = 20f;
     public int waterLevel = 4;
 
@@ -43,6 +43,11 @@ public class NoiseVoxelMap : MonoBehaviour
                     // 맨 위(y == h)는 풀, 나머지는 흙
                     GameObject prefab = (y == h) ? grassPrefab : dirtPrefab;
                     Place(prefab, x, y, z);
+                }
+
+                if (h >= waterLevel && Random.value < 0.03f)
+                {
+                    GenerateTree(x, h + 1, z); // 풀 바로 위에 생성
                 }
 
                 // 물 채우기
@@ -91,7 +96,7 @@ public class NoiseVoxelMap : MonoBehaviour
 
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
             b.type = ItemType.Grass;
-            b.maxHP = 3;
+            b.maxHP = 1;
             b.dropCount = 1;
             b.mineable = true;
         }
@@ -102,7 +107,7 @@ public class NoiseVoxelMap : MonoBehaviour
 
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
             b.type = ItemType.Water;
-            b.maxHP = 3;
+            b.maxHP = 1;
             b.dropCount = 1;
             b.mineable = true;
         }
@@ -113,7 +118,7 @@ public class NoiseVoxelMap : MonoBehaviour
 
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
             b.type = ItemType.Tree; // 5. 아이템 타입 변경
-            b.maxHP = 4; // 6. 나무에 맞는 HP 설정 (예시)
+            b.maxHP = 1; // 6. 나무에 맞는 HP 설정 (예시)
             b.dropCount = 1;
             b.mineable = true;
         }
@@ -124,7 +129,7 @@ public class NoiseVoxelMap : MonoBehaviour
 
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
             b.type = ItemType.rock; // 2. 아이템 타입 변경
-            b.maxHP = 5; // 3. 돌에 맞는 HP 설정 (예시)
+            b.maxHP = 1; // 3. 돌에 맞는 HP 설정 (예시)
             b.dropCount = 1;
             b.mineable = true;
         }
@@ -135,7 +140,7 @@ public class NoiseVoxelMap : MonoBehaviour
 
             var b = go.GetComponent<Block>() ?? go.AddComponent<Block>();
             b.type = ItemType.ore; // 2. 아이템 타입 변경
-            b.maxHP = 5; // 3. 돌에 맞는 HP 설정 (예시)
+            b.maxHP = 1; // 3. 돌에 맞는 HP 설정 (예시)
             b.dropCount = 1;
             b.mineable = true;
         }
@@ -144,21 +149,18 @@ public class NoiseVoxelMap : MonoBehaviour
 
     void GenerateTree(int x, int y, int z)
     {
-        int treeHeight = Random.Range(4, 7);
+        int th = Random.Range(4, 6); // 나무 높이
 
-        for(int i = 0; i < treeHeight; i++)
-        {
-            Place(treePrefab, x, y + i,z);
-        }
+        // 기둥 생성
+        for (int i = 0; i < th; i++) Place(treePrefab, x, y + i, z);
 
+        // 잎 생성: 기둥 꼭대기에 3x3 평면 하나만 딱! (가장 간단한 버전)
         for (int lx = -1; lx <= 1; lx++)
         {
             for (int lz = -1; lz <= 1; lz++)
             {
-                for (int ly = 0; ly < 2; ly++)
-                {
-                    Place(leafPrefab, x + lx, y + treeHeight + ly - 1, z + lz);
-                }
+                // 기둥 맨 위(y + th - 1) 바로 윗칸에 잎 배치
+                Place(leafPrefab, x + lx, y + th, z + lz);
             }
         }
     }
@@ -182,4 +184,6 @@ public class NoiseVoxelMap : MonoBehaviour
         Place(prefabToPlace, pos.x, pos.y, pos.z);
     }
 }
+
+
 }

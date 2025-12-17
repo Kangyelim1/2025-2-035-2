@@ -8,10 +8,12 @@ public class InventoryUI : MonoBehaviour
     public Sprite dirtSprite;
     public Sprite grassSprite;
     public Sprite waterSprite;
-    public Sprite axeSprite;
     public Sprite treeSprite;
     public Sprite rockSprite;
     public Sprite oreSprite;
+    public Sprite axeSprite;
+    public Sprite shovelSprite;
+    public Sprite GokgaengiSprite;
 
     public List<Transform> Slot = new List<Transform>();
     public GameObject SlotItem;
@@ -58,6 +60,12 @@ public class InventoryUI : MonoBehaviour
                     break;
                 case ItemType.ore:
                     sItem.ItemSetting(oreSprite, "x" + item.Value.ToString(), item.Key);
+                    break;
+                case ItemType.shovel:
+                    sItem.ItemSetting(shovelSprite, "x" + item.Value.ToString(), item.Key);
+                    break;
+                case ItemType.Gokgaengi:
+                    sItem.ItemSetting(GokgaengiSprite, "x" + item.Value.ToString(), item.Key);
                     break;
             }
             idx++;
