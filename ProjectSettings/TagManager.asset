@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Block
   - Grass
+  - rock
+  - ore
   layers:
   - Default
   - TransparentFX

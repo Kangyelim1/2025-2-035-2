@@ -24,30 +24,39 @@ public class NoiseVoxelMap : MonoBehaviour
 
     void Start()
     {
-        // 1. 현재 씬이 "2"인지 확인
-        if (SceneManager.GetActiveScene().name == "2")
-        {
-            // 하이어라키에서 SceneSwitcher를 찾음
-            SceneSwitcher switcher = FindObjectOfType<SceneSwitcher>();
+        string currentScene = SceneManager.GetActiveScene().name;
 
-            if (switcher != null)
-            {
-                // 프리팹 교체
-                dirtPrefab = switcher.scene2DirtPrefab;
-                grassPrefab = switcher.scene2GrassPrefab;
-                treeDensity = 0f; // 씬 2는 나무 없음
-                waterLevel = -1;  // 씬 2는 물 없음
-                Debug.Log("씬 2 설정 적용 완료!");
-            }
-            else
-            {
-                Debug.LogError("SceneSwitcher를 찾을 수 없습니다! DontDestroyOnLoad를 확인하세요.");
-            }
+        if (currentScene == "2")
+        {
+            // 씬 2일 때: 동(Copper)과 원석(Ore) 프리팹으로 변경
+            // 이 변수들은 인스펙터 창에서 직접 할당해주세요.
+            dirtPrefab = orePrefab;
+            grassPrefab = rockPrefab;
+            treeDensity = 0f; // 나무 확률을 0으로 고정
+            waterLevel = -1;
+            Debug.Log("씬 2: 광산 테마 설정 완료");
+        }
+        else
+        {
+            // 씬 1 (기본값) 설정은 인스펙터에 넣은 기본 프리팹 사용
+            Debug.Log("씬 1: 기본 테마 설정 완료");
         }
 
-        // 2. 맵 생성 함수 호출 (무조건 실행됨)
+        if (SceneManager.GetActiveScene().name == "2")
+        {
+            treeDensity = 0f; // 확률을 0으로
+        }
+
         GenerateMap();
+
+        // 플레이어 위치를 지표면 위로 강제 이동 (예: Y축 20 정도로 높게 설정)
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null)
+        {
+            player.transform.position = new Vector3(player.transform.position.x, 20f, player.transform.position.z);
+        }
     }
+
 
     public void GenerateMap()
     {

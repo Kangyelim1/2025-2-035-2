@@ -12,19 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eebddf8f2563e84a9454da1d0bb59a5, type: 3}
   m_Name: axe
   m_EditorClassIdentifier: 
-  resultPrefab: {fileID: 0}
   displayName: axe
   inputs:
   - type: 4
     count: 3
-  - type: 4
-    count: 3
-  - type: 4
-    count: 3
   outputs:
-  - type: 4
-    count: 3
-  - type: 5
-    count: 3
-  - type: 6
-    count: 3
+  - type: 3
+    count: 1

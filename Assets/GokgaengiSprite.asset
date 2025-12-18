@@ -12,19 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2eebddf8f2563e84a9454da1d0bb59a5, type: 3}
   m_Name: GokgaengiSprite
   m_EditorClassIdentifier: 
-  resultPrefab: {fileID: 0}
   displayName: GokgaengiSprite
   inputs:
   - type: 4
-    count: 3
-  - type: 4
-    count: 3
-  - type: 4
-    count: 3
+    count: 5
   outputs:
-  - type: 4
-    count: 4
-  - type: 5
-    count: 4
-  - type: 6
-    count: 4
+  - type: 8
+    count: 1
