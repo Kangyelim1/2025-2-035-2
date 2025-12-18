@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
-using UnityEditor.UI;
-using TMPro;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class CraftingPanel : MonoBehaviour
 {
