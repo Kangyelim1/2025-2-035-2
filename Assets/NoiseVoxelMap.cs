@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UIElements;
+using UnityEngine.SceneManagement;
 
 public class NoiseVoxelMap : MonoBehaviour
 {
@@ -23,7 +24,33 @@ public class NoiseVoxelMap : MonoBehaviour
 
     void Start()
     {
-        
+        // 1. 현재 씬이 "2"인지 확인
+        if (SceneManager.GetActiveScene().name == "2")
+        {
+            // 하이어라키에서 SceneSwitcher를 찾음
+            SceneSwitcher switcher = FindObjectOfType<SceneSwitcher>();
+
+            if (switcher != null)
+            {
+                // 프리팹 교체
+                dirtPrefab = switcher.scene2DirtPrefab;
+                grassPrefab = switcher.scene2GrassPrefab;
+                treeDensity = 0f; // 씬 2는 나무 없음
+                waterLevel = -1;  // 씬 2는 물 없음
+                Debug.Log("씬 2 설정 적용 완료!");
+            }
+            else
+            {
+                Debug.LogError("SceneSwitcher를 찾을 수 없습니다! DontDestroyOnLoad를 확인하세요.");
+            }
+        }
+
+        // 2. 맵 생성 함수 호출 (무조건 실행됨)
+        GenerateMap();
+    }
+
+    public void GenerateMap()
+    {
         float offsetX = Random.Range(-9999f, 9999f);
         float offsetZ = Random.Range(-9999f, 9999f);
 
@@ -60,16 +87,13 @@ public class NoiseVoxelMap : MonoBehaviour
                 }
 
                 // 나무 생성 로직 추가
-                if(Random.value < treeDensity)
+                if (Random.value < treeDensity)
                 {
-                    GenerateTree(x,h + 1, z);
+                    GenerateTree(x, h + 1, z);
                 }
             }
         }
-            
     }
-
-
 
     // 공통 블록 배치 함수
     private void Place(GameObject prefab, int x, int y, int z)

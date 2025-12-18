@@ -1,17 +1,22 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SceneSwitcher : MonoBehaviour
 {
-    public GameObject scene2DirtPrefab;
+   public GameObject scene2DirtPrefab;
     public GameObject scene2GrassPrefab;
-    // ...
+
+    void Awake()
+    {
+        // â­ ì´ ìƒìê°€ ì”¬ì´ ë°”ë€Œì–´ë„ ì•ˆ ì‚¬ë¼ì§€ê²Œ ì§€ì¼œì¤ë‹ˆë‹¤.
+        DontDestroyOnLoad(gameObject);
+    }
 
     void OnEnable()
     {
-        // ¾À ·Îµå ÀÌº¥Æ®¸¦ ±¸µ¶ (SceneManager.LoadScene() »ç¿ë ½Ã)
+        // ì”¬ ë¡œë“œ ì´ë²¤íŠ¸ë¥¼ êµ¬ë… (SceneManager.LoadScene() ì‚¬ìš© ì‹œ)
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -22,21 +27,8 @@ public class SceneSwitcher : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        if (scene.name == "2") // ¾À 2°¡ ·ÎµåµÇ¾úÀ» ¶§¸¸ ½ÇÇà
-        {
-            // 1. NoiseVoxelMap ÄÄÆ÷³ÍÆ®¸¦ Ã£½À´Ï´Ù.
-            NoiseVoxelMap mapScript = FindObjectOfType<NoiseVoxelMap>();
-
-            if (mapScript != null)
-            {
-                // 2. PrefabÀ» ¾À 2 ¼³Á¤À¸·Î ±³Ã¼ÇÕ´Ï´Ù.
-                mapScript.rockPrefab = scene2DirtPrefab;
-                mapScript.orePrefab = scene2GrassPrefab;
-                // ... ³ª¸ÓÁö Prefabµéµµ ±³Ã¼
-
-                // 3. (¼±ÅÃ »çÇ×) ¸Ê Àç»ı¼º ÇÔ¼ö È£Ãâ
-                // mapScript.GenerateMap();
-            }
-        }
+        // ì—¬ê¸°ëŠ” ë¹„ì›Œë‘ê±°ë‚˜ ì”¬ ì´ë™ ë¡œê·¸ ì •ë„ë§Œ ë‚¨ê²¨ë‘ì„¸ìš”.
+        Debug.Log(scene.name + " ì”¬ì´ ë¡œë“œë˜ì—ˆìŠµë‹ˆë‹¤.");
     }
 }
+

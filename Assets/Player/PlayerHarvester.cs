@@ -21,11 +21,15 @@ public class PlayerHarvester : MonoBehaviour
     private float startY; // 태어났을 때의 높이를 저장할 변수
     public float targetDepth = 5f; // "시작점으로부터 20칸 아래"로 설정
 
-    void Start()
+    // 1. 무언가(잔디/바닥)를 밟았을 때 그 높이를 저장합니다.
+    void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        // 1. 게임이 시작되자마자 현재 나의 Y 좌표를 딱 한 번 저장합니다.
-        startY = transform.position.y;
-        Debug.Log("시작 높이가 저장되었습니다: " + startY);
+        // 처음 무언가를 밟았을 때만 높이 저장
+        if (startY == 0)
+        {
+            startY = transform.position.y;
+            Debug.Log("기준 높이 저장 완료!");
+        }
     }
 
     void Awake()
@@ -79,15 +83,10 @@ public class PlayerHarvester : MonoBehaviour
 
         //씬 이동 조건
 
-        
-        // 2. 현재 내 높이와 시작 높이의 차이를 계산합니다.
-        // 시작 높이(예: 10) - 현재 높이(예: -10) = 판 깊이(20)
-        float currentDepth = startY - transform.position.y;
 
-        // 3. 만약 설정한 깊이(targetDepth)보다 더 깊이 내려갔다면 씬 이동!
-        if (currentDepth >= targetDepth)
+        // 2. 저장된 높이가 0이 아닐 때만(즉, 한 번이라도 밟았을 때만) 체크
+        if (startY != 0 && startY - transform.position.y >= targetDepth)
         {
-            Debug.Log("목표 깊이에 도달했습니다! 씬 이동을 시작합니다.");
             SceneManager.LoadScene("2");
         }
 

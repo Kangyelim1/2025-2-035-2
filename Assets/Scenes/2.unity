@@ -1282,19 +1282,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7eeae66c7b5ccf94397e62a9b082bf3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dirtPrefab: {fileID: 2651435967152859989, guid: f5e017f12c9c71f4c9898d152f19f035,
+  dirtPrefab: {fileID: 2372005075644011101, guid: f5e017f12c9c71f4c9898d152f19f035,
     type: 3}
-  grassPrefab: {fileID: 7106333333223134705, guid: 04247a85fd1c77f4b973ad3f032b14db,
+  grassPrefab: {fileID: 5086047089774307800, guid: 04247a85fd1c77f4b973ad3f032b14db,
     type: 3}
-  waterPrefab: {fileID: 1418798333313557763, guid: 5b5be362b2a8c754c965ee466d763c7d,
+  waterPrefab: {fileID: 7602303085096416979, guid: 5b5be362b2a8c754c965ee466d763c7d,
     type: 3}
-  treePrefab: {fileID: 1525156433185271183, guid: 38f7a5f08493cf442804c1fe982a22e2,
+  treePrefab: {fileID: 4200898658422818779, guid: 38f7a5f08493cf442804c1fe982a22e2,
     type: 3}
-  leafPrefab: {fileID: 8634052609186609660, guid: 2ba71587c10bb084ab6366f32ca0215f,
+  leafPrefab: {fileID: 3231545148639965384, guid: 2ba71587c10bb084ab6366f32ca0215f,
     type: 3}
-  rockPrefab: {fileID: 7201849046189815541, guid: e49ddea515566ed43a33c0650823e05e,
+  rockPrefab: {fileID: 1184989070414772915, guid: e49ddea515566ed43a33c0650823e05e,
     type: 3}
-  orePrefab: {fileID: 7046015985219264218, guid: 268ed023e731cee45b55d6bb7f9bf65c,
+  orePrefab: {fileID: 3396038116830388186, guid: 268ed023e731cee45b55d6bb7f9bf65c,
     type: 3}
   width: 40
   depth: 40
@@ -1601,10 +1601,12 @@ MonoBehaviour:
   dirtSprite: {fileID: 21300000, guid: 4cdb476e49b75cd44a7aae4c87fdb849, type: 3}
   grassSprite: {fileID: 21300000, guid: 285be542ce9e1bd4f9feb0b80de96c36, type: 3}
   waterSprite: {fileID: 21300000, guid: 32cf2cc6c2f6eed45b78aa5f4eb656ea, type: 3}
-  axeSprite: {fileID: 21300000, guid: f37d86c57c8b481458eb999bb04a4a0a, type: 3}
-  treeSprite: {fileID: 0}
-  rockSprite: {fileID: 0}
-  oreSprite: {fileID: 0}
+  treeSprite: {fileID: 21300000, guid: 40d1a81551809cd40b24b78f5b35dcda, type: 3}
+  rockSprite: {fileID: 21300000, guid: de4f392641770e24394e2c916c330f1b, type: 3}
+  oreSprite: {fileID: 21300000, guid: c4aebfc588fc10546a62ca48058bc908, type: 3}
+  axeSprite: {fileID: 21300000, guid: ddb9106b893026f42b31ac2fabf8c56c, type: 3}
+  shovelSprite: {fileID: 21300000, guid: 6c49498504761624aa3096ddf808fcc8, type: 3}
+  GokgaengiSprite: {fileID: 21300000, guid: f53cb5df2b911eb4dbe43299c4b0241a, type: 3}
   Slot:
   - {fileID: 2031868392}
   - {fileID: 1468277264}
@@ -2421,6 +2423,7 @@ MonoBehaviour:
   hitCooldown: 0.15
   inventory: {fileID: 2068495876}
   selectedBlock: {fileID: 172660295}
+  targetDepth: 5
 --- !u!114 &2068495878
 MonoBehaviour:
   m_ObjectHideFlags: 0

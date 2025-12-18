@@ -1776,9 +1776,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 58f036da5960ca74aafa5c8d02d76533, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scene2DirtPrefab: {fileID: 7046015985219264218, guid: 268ed023e731cee45b55d6bb7f9bf65c,
+  scene2DirtPrefab: {fileID: 1184989070414772915, guid: e49ddea515566ed43a33c0650823e05e,
     type: 3}
-  scene2GrassPrefab: {fileID: 7201849046189815541, guid: e49ddea515566ed43a33c0650823e05e,
+  scene2GrassPrefab: {fileID: 3396038116830388186, guid: 268ed023e731cee45b55d6bb7f9bf65c,
     type: 3}
 --- !u!4 &884439740
 Transform:
@@ -2212,7 +2212,7 @@ MonoBehaviour:
   hitCooldown: 0.15
   inventory: {fileID: 1415879459}
   selectedBlock: {fileID: 937813663}
-  targetDepth: 20
+  targetDepth: 5
 --- !u!114 &1415879461
 MonoBehaviour:
   m_ObjectHideFlags: 0
